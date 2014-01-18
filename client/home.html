@@ -1,0 +1,79 @@
+<head>
+	<title>Meteor Connection Monitoring</title>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="navbar navbar-static-top navbar-inverse">
+		<div class="navbar-inner">
+			<a class="brand">Meteor Connection Monitoring</a>
+			{{loginButtons}}
+		</div>
+	</div>
+	<div class="container">
+		<h1>Meteor Connection Monitoring</h1>
+		<p>This app maintains a record of all the current active connections to a Meteor server, along with the
+		active subscriptions for each connection.
+		It does this by adding callbacks to socket open and close events and by injecting handlers that wrap
+		Meteor's internal code that handles the starting and stopping of subscriptions.</p>
+		<p>Although in this demo the information is made publically available to everyone who connects, only
+		minor modifications would be required to make it only available to admins.</p>
+		<p>Thanks go to
+		<a href="https://github.com/mizzao/">Andrew Mao</a>
+		(<a href="https://github.com/mizzao/">https://github.com/mizzao/</a>) for his
+		<a href="https://github.com/mizzao/meteor-user-status">meteor-user-status</a>
+		(<a href="https://github.com/mizzao/meteor-user-status">https://github.com/mizzao/meteor-user-status</a>)
+		package which helped get me started on monitoring open connections.</p>
+
+		<p><a href="https://github.com/christravis/meteor-connection-monitor" class="btn btn-primary"><span class="fa fa-github"></span> View Code on Github</a></p>
+
+		{{> subSwitcher}}
+		{{> connectionList}}
+	</div>
+</body>
+
+<template name="subSwitcher">
+	<h4>Available Subscriptions</h4>
+	<p>Alter your subscriptions by clicking on these buttons:</p>
+	<div class="btn-group">
+{{#each subscriptions}}
+		<button id="{{this}}" class="btn">{{this}}</button>
+{{/each}}
+	</div>
+</template>
+
+<template name="connectionList">
+<h4>Current Connections</h4>
+<p>
+	<table class="table table-bordered table-condensed table-striped">
+		<tr>
+			<th>Session ID</th>
+			<th>Username</th>
+			<th>IP</th>
+			<th>Connected At</th>
+			<th>Login At</th>
+			<th>Subscriptions</th>
+		</tr>
+		{{#each connections}}
+		<tr>
+			<td>{{sessionID}}</td>
+			<td>{{username}}</td>
+			<td>{{ip}}</td>
+			<td>{{connected_tstamp}}</td>
+			<td>{{login_tstamp}}</td>
+			<td>
+			{{#if subscriptions}}
+				<ul>
+				{{#each subscriptions}}
+					{{#if name}}
+					<li>{{name}}</li>
+					{{/if}}
+				{{/each}}
+				</ul>
+			{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</table>
+</p>
+</template>
