@@ -1,5 +1,9 @@
 {
-  "packages": {
-    "accounts-ui-bootstrap-dropdown": {}
-  }
+  "name": "session-monitor",
+  "description": "Monitors the active sessions and subscriptions to your Meteor app",
+  "homepage": "https://github.com/christravis/meteor-session-monitor",
+  "author": "Chris Travis <meteor@christravis.co.uk> (http://christravis.co.uk)",
+  "version": "2.0.0",
+  "git": "https://github.com/christravis/meteor-session-monitor.git",
+  "packages": {}
 }
